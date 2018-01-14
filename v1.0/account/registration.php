@@ -86,7 +86,7 @@ class AccountRegistrationAction extends API_Action {
     $list_id = $this->db->instance->insert_id;
     $title = 'Обучение';
     $description = 'Запись создана автоматически';
-    $active = true;
+    $active = false;
 
     $query = 'INSERT INTO items (list_id, title, description, is_active) VALUES (?, ?, ?, ?)';
     $stmt = $this->db->instance->prepare($query);
