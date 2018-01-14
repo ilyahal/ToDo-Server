@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 10.0.0.11
--- Время создания: Янв 11 2018 г., 02:53
+-- Время создания: Янв 14 2018 г., 11:12
 -- Версия сервера: 5.7.20-19
 -- Версия PHP: 5.6.31
 
@@ -22,6 +22,20 @@ SET time_zone = "+00:00";
 -- База данных: `todo`
 --
 
+DELIMITER $$
+--
+-- Процедуры
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_sessions` (IN `_user_id` INT(11) UNSIGNED)  BEGIN
+	SELECT `app_id`, `token` FROM `access` WHERE `user_id` = _user_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_users` ()  BEGIN
+	SELECT `user_id`, `email` FROM `users`;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -32,7 +46,7 @@ CREATE TABLE `access` (
   `app_id` int(11) UNSIGNED NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
   `token` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -47,7 +61,7 @@ CREATE TABLE `colors` (
   `blue` int(3) UNSIGNED NOT NULL,
   `insert_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_date` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `colors`
@@ -86,7 +100,7 @@ CREATE TABLE `icons` (
   `name` varchar(20) NOT NULL,
   `insert_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_date` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `icons`
@@ -118,7 +132,7 @@ CREATE TABLE `items` (
   `is_active` tinyint(1) NOT NULL,
   `insert_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_date` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -135,7 +149,7 @@ CREATE TABLE `lists` (
   `icon_id` int(2) UNSIGNED NOT NULL,
   `insert_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_date` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -147,7 +161,7 @@ CREATE TABLE `users` (
   `user_id` int(11) UNSIGNED NOT NULL,
   `email` varchar(40) NOT NULL,
   `password` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Индексы сохранённых таблиц
